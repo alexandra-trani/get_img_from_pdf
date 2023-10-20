@@ -24,17 +24,16 @@ if not os.path.exists(img_directory):
 
 # load the pdf file
 pdf_file = fitz.open(file)
-
-for page_index in range(len(pdf_file)):
-    # get the page itself
-    page = pdf_file[page_index]
-    image_list = page.get_images()
-    with open(f'{target_name}_readme.txt', 'w') as f:
+with open(f'{target_name}_readme.txt', 'w') as f:
+    for page_index in range(len(pdf_file)):
+        # get the page itself
+        page = pdf_file[page_index]
+        image_list = page.get_images()
         # printing number of images found in this page
         if image_list:
             line = f"[+] Found a total of {len(image_list)} images in page {page_index}"
         else:
-            line = "[!] No images found on page", page_index
+            line = f"[!] No images found on page {page_index}"
         f.write(line)
         f.write('\n')
 
